@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom'; // ✅ Import added
+
 import silence from './Pictures/Black and Grey Dark Forest Aesthetic Book Cover.png';
 import The_girl_in_the_woods from './Pictures/Blue Mystery Girl Woods Novel Book Cover.png';
 import Garden from './Pictures/Dark Girl Portrait & Flowers Paper Collage Book Cover.png';
@@ -6,12 +8,15 @@ import TheWoods from './Pictures/Gray Brown Minimalist Mysterious Thriller Book 
 import Venus from './Pictures/Red Modern Science Fiction Book Cover.png';
 import TheLostKingdom from './Pictures/Simple Elegant Young Adult Fantasy Romance Book Cover.png';
 import HelloCarol from './Pictures/Yellow and Green Illustration Story Tale Book Cover.png';
+import Paradox from './Pictures/Beige And Black Simple Science Fiction Book Cover.png';
+import Eye from './Pictures/Beige and Red Minimalist Eye Illustration Book Cover.png';
 
 import './Home.css';
 
 function Home() {
   const [showCategories, setShowCategories] = useState(false);
   const dropdownRef = useRef(null);
+  const navigate = useNavigate(); // ✅ Used for navigation
 
   const handleBookClick = (title) => {
     alert(`Clicked on: ${title}`);
@@ -37,48 +42,60 @@ function Home() {
   const books = {
     popular: [
       {
-        title: "Silence",
-        author: "Delia Owens",
-        votes: "198,268 votes",
+        title: 'Silence',
+        author: 'Delia Owens',
+        votes: '35,458 votes',
         image: silence,
       },
       {
-        title: "The girl in the woods",
-        author: "Anthony Doerr",
-        votes: "198,268 votes",
+        title: 'The girl in the woods',
+        author: 'Anthony Doerr',
+        votes: '98,268 votes',
         image: The_girl_in_the_woods,
       },
     ],
     recommended: [
       {
-        title: "Garden",
-        author: "Kevin Kwan",
-        votes: "198,268 votes",
+        title: 'Garden',
+        author: 'Kevin Kwan',
+        votes: '8,268 votes',
         image: Garden,
       },
       {
-        title: "TheWoods",
-        author: "Kevin Kwan",
-        votes: "198,268 votes",
+        title: 'TheWoods',
+        author: 'Kevin Kwan',
+        votes: '19,826 votes',
         image: TheWoods,
       },
       {
-        title: "Venus",
-        author: "Tere Liye",
-        votes: "198,268 votes",
+        title: 'Venus',
+        author: 'Tere Liye',
+        votes: '198,268 votes',
         image: Venus,
       },
       {
-        title: "TheLostKingdom",
-        author: "Tere Liye",
-        votes: "198,268 votes",
+        title: 'TheLostKingdom',
+        author: 'Tere Liye',
+        votes: '8,268 votes',
         image: TheLostKingdom,
       },
       {
-        title: "HelloCarol",
-        author: "Fiersa Besari",
-        votes: "198,268 votes",
+        title: 'HelloCarol',
+        author: 'Fiersa Besari',
+        votes: '9,868 votes',
         image: HelloCarol,
+      },
+      {
+        title: 'Paradox',
+        author: 'Fiersa Besari',
+        votes: '1,968 votes',
+        image: Paradox,
+      },
+      {
+        title: 'Eye',
+        author: 'Fiersa Besari',
+        votes: '8,638 votes',
+        image: Eye,
       },
     ],
   };
@@ -109,7 +126,13 @@ function Home() {
                   "Historical",
                   "Thriller",
                 ].map((category, i) => (
-                  <button key={i} className="category-btn">{category}</button>
+                  <button
+                    key={i}
+                    className="category-btn"
+                    onClick={() => navigate(`/${category.toLowerCase().replace(/\s/g, '-')}`)}
+                  >
+                    {category}
+                  </button>
                 ))}
               </div>
             )}
@@ -150,9 +173,8 @@ function Home() {
             </div>
           ))}
         </div>
+        <button className="more-link">More &gt;&gt;&gt;</button>
       </section>
-
-      <p className="more-link">More &gt;&gt;&gt;</p>
     </div>
   );
 }

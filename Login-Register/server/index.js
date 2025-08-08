@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const Employeemodel = require('./models/Employee');
 
+
+
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -29,6 +31,7 @@ app.post('/register', (req, res) => {
     .then(employees => res.json(employees))
     .catch(err => res.json(err));
 })
+
 
 mongoose.connect("mongodb://localhost:27017/BookNet");
 app.listen(3001, () => {
