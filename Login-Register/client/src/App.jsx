@@ -10,6 +10,7 @@ import SciFi from './SciFi';
 import Romantic from './Romantic';
 import Historical from './Historical';
 import Thriller from './Thriller';
+import MyCollection from './MyCollection'; // Import MyCollection component
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
         <Route path="/romantic" element={<Romantic />} />
         <Route path="/historical" element={<Historical />} />
         <Route path="/thriller" element={<Thriller />} />
+        <Route path="/mycollection" element={<MyCollection />} /> {/* Route for MyCollection */}
         
         </Routes>
     </BrowserRouter>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom'; // ✅ Import added
+import NavBar from './NavBar';
 
 import silence from './Pictures/Black and Grey Dark Forest Aesthetic Book Cover.png';
 import The_girl_in_the_woods from './Pictures/Blue Mystery Girl Woods Novel Book Cover.png';
@@ -102,46 +103,7 @@ function Home() {
 
   return (
     <div className="home-container">
-      {/* NAVBAR */}
-      <div className="navbar">
-        <div className="logo">BookNet</div>
-
-        <div className="search-bar">
-          <input type="text" placeholder="Search here" className="search-input" />
-          <button className="search-button">Search</button>
-        </div>
-
-        <div className="nav-dropdowns">
-          <div className="nav-item-active">All ▾</div>
-
-          <div className="dropdown" ref={dropdownRef}>
-            <div className="nav-item" onClick={toggleCategories}>Categories ▾</div>
-            {showCategories && (
-              <div className="dropdown-content">
-                {[
-                  "Fantasy",
-                  "Sci-fi",
-                  "Romantic",
-                  "Kids",
-                  "Historical",
-                  "Thriller",
-                ].map((category, i) => (
-                  <button
-                    key={i}
-                    className="category-btn"
-                    onClick={() => navigate(`/${category.toLowerCase().replace(/\s/g, '-')}`)}
-                  >
-                    {category}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <div className="nav-item">My collection ▾</div>
-          <div className="nav-item">Reading list ▾</div>
-        </div>
-      </div>
+      <NavBar activePage="all" /> 
 
       {/* POPULAR SECTION */}
       <section className="section">

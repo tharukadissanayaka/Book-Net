@@ -17,6 +17,8 @@ function Login(){
                 .then(result => {
                     console.log(result)
                     if(result.data === "Success"){
+                        localStorage.setItem("userId", result.data.userId);
+                        localStorage.setItem("userEmail", email);
                         navigate('/home')
                     }else{
                         setError("Your email or password is incorrect");
