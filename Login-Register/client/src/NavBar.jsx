@@ -5,17 +5,36 @@ import './Home.css'; // Reuse same styles
 
 function NavBar({ activePage }) {
   const [showCategories, setShowCategories] = useState(false);
-  const dropdownRef = useRef(null);
+  const [showReadingListMenu, setShowReadingListMenu] = useState(false);
+
+  const categoriesRef = useRef(null);
+  const readingListRef = useRef(null);
   const navigate = useNavigate();
 
   const toggleCategories = () => {
-    setShowCategories(!showCategories);
+    setShowCategories(prev => !prev);
+    setShowReadingListMenu(false);
+  };
+
+  const toggleReadingListMenu = () => {
+    setShowReadingListMenu(prev => !prev);
+    setShowCategories(false);
+  };
+
+  const handleNavigate = (path) => {
+    navigate(path);
+    setShowCategories(false);
+    setShowReadingListMenu(false);
   };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      if (
+        (categoriesRef.current && !categoriesRef.current.contains(event.target)) &&
+        (readingListRef.current && !readingListRef.current.contains(event.target))
+      ) {
         setShowCategories(false);
+        setShowReadingListMenu(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -24,7 +43,7 @@ function NavBar({ activePage }) {
 
   return (
     <div className="navbar">
-      <div className="logo" onClick={() => navigate('/home')}>BookNet</div>
+      <div className="logo" onClick={() => handleNavigate('/home')}>BookNet</div>
 
       <div className="search-bar">
         <input type="text" placeholder="Search here" className="search-input" />
@@ -32,14 +51,16 @@ function NavBar({ activePage }) {
       </div>
 
       <div className="nav-dropdowns">
+        {/* All */}
         <div
           className={activePage === 'all' ? 'nav-item-active' : 'nav-item'}
-          onClick={() => navigate('/home')}
+          onClick={() => handleNavigate('/home')}
         >
           All ▾
         </div>
 
-        <div className="dropdown" ref={dropdownRef}>
+        {/* Categories Dropdown */}
+        <div className="dropdown" ref={categoriesRef}>
           <div className="nav-item" onClick={toggleCategories}>Categories ▾</div>
           {showCategories && (
             <div className="dropdown-content">
@@ -54,7 +75,7 @@ function NavBar({ activePage }) {
                 <button
                   key={i}
                   className="category-btn"
-                  onClick={() => navigate(`/${category.toLowerCase().replace(/\s/g, '-')}`)}
+                  onClick={() => handleNavigate(`/${category.toLowerCase().replace(/\s/g, '-')}`)}
                 >
                   {category}
                 </button>
@@ -63,16 +84,44 @@ function NavBar({ activePage }) {
           )}
         </div>
 
+        {/* My Collection */}
         <div
           className={activePage === 'cart' ? 'nav-item-active' : 'nav-item'}
-          onClick={() => navigate('/mycollection')}
+          onClick={() => handleNavigate('/mycollection')}
         >
           My collection ▾
         </div>
-        <div className="nav-item">Reading list ▾</div>
+
+        {/* Reading List Dropdown */}
+        <div className="dropdown" ref={readingListRef}>
+          <div
+            className={activePage === 'readinglist' ? 'nav-item-active' : 'nav-item'}
+            onClick={toggleReadingListMenu}
+          >
+            Reading list ▾
+          </div>
+          {showReadingListMenu && (
+            <div className="dropdown-content">
+              <button
+                className="category-btn"
+                onClick={() => handleNavigate('/newbooks')}
+              >
+                New Books
+              </button>
+              <button
+                className="category-btn"
+                onClick={() => handleNavigate('/continuereading')}
+              >
+                Continue Reading
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
 }
 
 export default NavBar;
+
+
