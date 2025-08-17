@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom'; // ✅ Import added
 import NavBar from './NavBar';
+import { FaLinkedin, FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
+
 
 import silence from './Pictures/Black and Grey Dark Forest Aesthetic Book Cover.png';
 import The_girl_in_the_woods from './Pictures/Blue Mystery Girl Woods Novel Book Cover.png';
@@ -124,19 +126,52 @@ function Home() {
       </section>
 
       {/* RECOMMENDED SECTION */}
-      <section className="section">
-        <h2>Recommended</h2>
-        <div className="book-recommend-row">
-          {books.recommended.map((book, i) => (
-            <div key={i} className="book-recommend-card">
-              <img src={book.image} alt={book.title} />
-              <h4>{book.title}</h4>
-              <p>4.5 ★ ({book.votes})</p>
-            </div>
-          ))}
+     <section className="section">
+  <h2>Recommended</h2>
+  <div className="book-recommend-row">
+    {books.recommended.map((book, i) => (
+      <div key={i} className="book-recommend-card">
+        <img src={book.image} alt={book.title} />
+        <h4>{book.title}</h4>
+        <p>4.5 ★ ({book.votes})</p>
+
+        {/* Show "More >>>" only for Eye book */}
+        {book.title === "Eye" && (
+          <span className="more-link">More &gt;&gt;&gt;</span>
+        )}
+      </div>
+    ))}
+  </div>
+</section>
+
+
+
+      {/* FOOTER */}
+    <footer className="footer">
+        <div className="footer-content">
+          <div className="footer-info">
+            <p><strong>Email:</strong> support@bookstore.com</p>
+            <p><strong>Phone:</strong> (+94) 76 380 4350</p>
+            <p><strong>Address:</strong> No 123, Main Street, Galle, Sri Lanka</p>
+          </div>
+
+          <div className="footer-socials">
+            <a href="https://linkedin.com" target="_blank" rel="noreferrer">
+              <FaLinkedin />
+            </a>
+            <a href="https://facebook.com" target="_blank" rel="noreferrer">
+              <FaFacebook />
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noreferrer">
+              <FaInstagram />
+            </a>
+            <a href="https://twitter.com" target="_blank" rel="noreferrer">
+              <FaTwitter />
+            </a>
+          </div>
         </div>
-        <button className="more-link">More &gt;&gt;&gt;</button>
-      </section>
+      </footer>
+
     </div>
   );
 }
